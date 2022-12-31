@@ -1,7 +1,8 @@
 import { StyleSheet, TouchableOpacity, View, Text, TextInput, KeyboardAvoidingView, Linking, Alert } from "react-native";
 import {ref, set, get, child, onValue} from "firebase/database";
 import React, { useState } from "react";
-
+import 'react-native-get-random-values';
+import {v4 as uuidv4} from 'uuid';
 import { db } from "../config";
 
 
@@ -12,24 +13,25 @@ export default function OrderAd({ route, navigation}) {
     const [userStreet, setStreet] = useState('');
     const [userHouse, setHouse] = useState('');
     const [userCode, setUserCode] = useState('');
-    const [purchaseID, setPurchaceID] = useState(route.params);
-    console.log(purchaseID);
-
-    const reference = ref(db, 'OrderInfo/');
+    const [purchaseID, setPurchaceID] = useState(uuidv4());
+    
 
     sendOrder = () => {
-        set(reference, {
+       
+       set(ref(db, 'OrderInfo/'+purchaseID), {
             userCity: userCity,
             userStreet: userStreet,
             userHouse: userHouse,
             userCode: userCode,
-            purchaseID: purchaseID,
+        }).then(()=> {
+            alert("Data is in!")
         });
-        alert("Data is in!")
+        
         setUserCity('');
         setStreet('');
         setHouse('');
         setUserCode('');
+        setPurchaceID('');
     }    
 
     return(
