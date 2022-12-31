@@ -19,13 +19,8 @@ export default function MaintScreen({navigation}) {
     <SafeAreaView style={styles.ViewStyle}>
             
 
-            <View style={styles.InputStileView}>
-           
-             
             
-
-                
-    </View>
+    
 
 
      </SafeAreaView>

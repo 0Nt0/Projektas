@@ -49,14 +49,21 @@ export default function LoginScreen({navigation}) {
         }).start();
       };
 
+      useEffect(() => {
+        const subscriber = auth.onAuthStateChanged(user => {
+            if (user!=null) {
+                navigation.navigate("main")
+            }
+        })
+        return subscriber
+    }, [])
+
       const LoginCheck = () => {
         signInWithEmailAndPassword(auth, AdminEmail, AdminPassword)
-            .then(userCredentials => {
-                const user = userCredentials.user;
+            .then(() => {
                 navigation.navigate("main");
-                console.log('Logged in with:' , user.AdminEmail);
         })
-        .catch(error => alert(error.message))
+        .catch(e => alert(e))
     }
     
     return(
