@@ -1,13 +1,64 @@
-import { Alert, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from "react-native";
-import { useEffect, useState } from "react";
+import { Alert, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity, Animated } from "react-native";
+import { useEffect, useState,useRef } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React from "react";
 import MaskedView from '@react-native-masked-view/masked-view';
+import {auth} from '../config';
+
+import {signInWithEmailAndPassword} from "firebase/auth";
+
+
 
 export default function LoginScreen({navigation}) {
 
 
+    const [AdminEmail, setAdminEmail] = useState('')
+    const [AdminPassword, setAdminPassword] = useState('')
+
+    const[inpBackColor, setInpBackcolor]=useState('#ffffff')
+    const[inpBackColorPass, setInpBackcolorPass]=useState('#ffffff')
+
+    const onFocusChange=()=> {
+                 setInpBackcolor('#FEECAA')
+                    }
+
+    const onBlurChange=()=> {
+                 setInpBackcolor('#ffffff')
+                    }
+    const onFocusChangePass=()=> {
+                        setInpBackcolorPass('#FEECAA')
+                           }
+       
+    const onBlurChangePass=()=> {
+                        setInpBackcolorPass('#ffffff')
+                           }
+
+    const animationStart=useRef(new Animated.Value(0)).current
+    useEffect(()=>{
+        animationStart.setValue(1);
+          },[]);
+          
+    const SpringAnimation=(x)=>{
+        x.setValue(0.4)
+        Animated.spring(x,{
+          toValue:1,
+          bounciness:24,
+          speed:20,
+          useNativeDriver:true
+        }).start();
+      };
+
+      const LoginCheck = () => {
+        signInWithEmailAndPassword(auth, AdminEmail, AdminPassword)
+            .then(userCredentials => {
+                const user = userCredentials.user;
+                navigation.navigate("main");
+                console.log('Logged in with:' , user.AdminEmail);
+        })
+        .catch(error => alert(error.message))
+    }
+    
     return(
     <SafeAreaView style={styles.ViewStyle}>
             <MaskedView maskElement={<Text style={[styles.LogInText,{backgroundColor:'transparent'}]}>
@@ -23,28 +74,35 @@ export default function LoginScreen({navigation}) {
               </LinearGradient>
             </MaskedView>
 
-            
             <View style={styles.InputStileView}>
             <View style={{marginLeft:'35%'}}>
                 <Text style={{fontSize:15, color:'#FF4B25'}}>
                     Admin
                 </Text>
             </View>
-             <View style={styles.InputStyle}>
+             <View style={[styles.InputStyle,{backgroundColor: inpBackColor,}]}>
             <TextInput
                     placeholder="Email"
-                    
+                    value={AdminEmail}
+                    onChangeText={text=>setAdminEmail(text)}
+                    onFocus={()=> onFocusChange()}
+                    onBlur={()=> onBlurChange()}
                 />
             </View >
-            <View style={styles.InputStyle}>
-            <TextInput
+            <View style={[styles.InputStyle,{backgroundColor: inpBackColorPass,}]}>
+            <TextInput 
                     placeholder="Password"
+                    value={AdminPassword}
+                    onChangeText={text=>setAdminPassword(text)}
+                    onFocus={()=> onFocusChangePass()}
+                    onBlur={()=> onBlurChangePass()}
                     secureTextEntry
                 />
             </View>
             </View>
 
-            <View style={styles.ButtonStyle}>
+        <TouchableOpacity style={styles.ButtonStyle} onPress={()=>[SpringAnimation(animationStart), LoginCheck()]}>
+         <Animated.View style={{transform:[{scale:animationStart}]}}>
             <MaskedView  maskElement={<Text style={[{backgroundColor:'transparent', marginLeft:'25%',fontSize:20}]}>
                      LOG IN
                  </Text>}>
@@ -57,7 +115,8 @@ export default function LoginScreen({navigation}) {
                  </Text>
               </LinearGradient>
             </MaskedView>
-            </View>
+         </Animated.View>
+        </TouchableOpacity>
 
 
      </SafeAreaView>
@@ -93,7 +152,6 @@ const styles = StyleSheet.create({
         width:'90%',
         borderWidth:5,
         borderColor:'#CACACA',
-        backgroundColor: '#ffffff',
         borderRadius:30,
         margin:5,
         alignContent:'center',
