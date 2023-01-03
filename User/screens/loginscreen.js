@@ -1,15 +1,18 @@
 import { Alert, StyleSheet, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import React from "react";
+import {firebase} from '../config'
 import { AsyncStorage } from "@react-native-async-storage/async-storage";
-
-
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+//import firestore from 'firebase/firestore';
 
 
 export default function LoginScreen({navigation}) {
 
     const auth = getAuth();
+
+    const ref= firebase.firestore().collection('users');
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     console.log(email);
@@ -27,10 +30,15 @@ export default function LoginScreen({navigation}) {
 
     const handleSignUp = () => {
         createUserWithEmailAndPassword(auth, email, password)
-            .then(userCredentials => {
-                const user = userCredentials.user;
-                alert("Registration successful!")
-                console.log(user.email);
+            .then(() => {
+                const data={
+                    email:email,
+                    password:password,
+                    id:auth.currentUser.uid
+                };
+                ref.add(data).then(()=> {
+
+                }).catch((error)=>{alert(error)})
             })
             .catch(error => alert(error.message))
     }
