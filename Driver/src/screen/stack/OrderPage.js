@@ -23,18 +23,18 @@ import {
 
 function OrderPage({ navigation: { navigate } }) {
     const [driverOrders, setDriverOrders] = useState([]);
-    const reference = ref(db, '/DriversOrders');
+    const driverReference = ref(db, '/DriversOrders');
 
     useEffect(() => {
-        onValue(reference, (snapshot) => {
+        onValue(driverReference, (snapshot) => {
             snapshot.forEach((childSnapshot) => {
-                const childKey = childSnapshot.key;
-                const childData = childSnapshot.val();
-
+                const driverKey = childSnapshot.key;
+                const driverData = childSnapshot.val();
+				
                 const driverOrder = {
-                    id: childKey,
-                    driver: childData.driver,
-                    usersOrderId: childData.usersOrderId
+                    id: driverKey,
+                    driver: driverData.driver,
+                    usersOrderId: driverData.usersOrderId
                 };
 
                 setDriverOrders(emptyArray => [...emptyArray, driverOrder]);
@@ -43,7 +43,7 @@ function OrderPage({ navigation: { navigate } }) {
     }, []);
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={styles.body}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>Order Page</Text>
             </View>
@@ -54,8 +54,9 @@ function OrderPage({ navigation: { navigate } }) {
                 renderItem={(item) => {
                     return (
                         <View style={styles.row}>
-                            <Text style={styles.rowTitle}>Order Id: {item.item.usersOrderId}</Text>
-							<Button title='Go to order' style={{ alignSelf: 'center' }} onPress={() => navigate('Info', item)} />
+                            <Text style={styles.rowTitle}>Order Id:</Text>
+							<Text style={styles.rowData}>{item.item.usersOrderId}</Text>
+							<Button title='Go to order' style={styles.buttonStyle} onPress={() => navigate('Info', { id: item.item.usersOrderId })} />
                         </View>
                     )
                 }}
@@ -67,11 +68,16 @@ function OrderPage({ navigation: { navigate } }) {
 }
 
 const styles = StyleSheet.create({
+	body: {
+		flex: 1,
+		backgroundColor: 'silver'
+	},
+	
     header: {
         height: 65,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'slategray'
+        backgroundColor: 'peru',
     },
 
     headerText: {
@@ -84,7 +90,7 @@ const styles = StyleSheet.create({
     },
 
     row: {
-        padding: 5,
+        padding: 10,
         borderWidth: 1,
         borderColor: '#ddd',
         borderRadius: 15,
@@ -96,8 +102,17 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 18,
         fontWeight: 'bold',
-        marginBottom: 15
-    }
+    },
+	
+	rowData: {
+		color: 'black',
+		fontSize: 16,
+		marginBottom: 15
+	},
+	
+	buttonStyle: {
+		alignSelf: 'Center'
+	}
 });
 
 export default OrderPage;

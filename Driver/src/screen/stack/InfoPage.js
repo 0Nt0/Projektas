@@ -1,4 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { 
+	useState,
+	useEffect
+} from 'react';
 
 import {
     SafeAreaView,
@@ -16,7 +19,7 @@ import {
     db
 } from '../../config';
 
-function InfoPage({ navigation: { navigate } }, { route }) {
+function InfoPage({ route, navigation}) {
     const [id, setId] = useState("");
     const [user, setUser] = useState("");
     const [userCity, setUserCity] = useState("");
@@ -24,10 +27,12 @@ function InfoPage({ navigation: { navigate } }, { route }) {
     const [userHouse, setUserHouse] = useState("");
     const [userStreet, setUserStreet] = useState("");
     const [itemId, setItemId] = useState("");
+	
+	console.log(route);
 
-    const order = route.params;
+    const orderId = route.params;
 
-    const reference = ref(db, '/OrderInfo/' + order.usersOrderId);
+    const reference = ref(db, '/OrderInfo/' + orderId.id);
 
     useEffect(() => {
         onValue(reference, (snapshot) => {
@@ -47,17 +52,23 @@ function InfoPage({ navigation: { navigate } }, { route }) {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.header}>
-                <Text>Info Page</Text>
+                <Text style={styles.headerText}>Info Page</Text>
             </View>
-            <View>
-                <Text>{id}</Text>
-                <Text>{user}</Text>
-                <Text>{userCity}</Text>
-                <Text>{userCode}</Text>
-                <Text>{userHouse}</Text>
-                <Text>{userStreet}</Text>
-                <Text>{itemId}</Text>
+            <View style={styles.body}>
+				<View style={styles.bodyHeader}>
+					<Text style={styles.bodyHeaderText}>Ordered by: {user}</Text>
+				</View>
+                <Text style={styles.bodyText}>{userCity}, {userStreet}, {userHouse}</Text>
+                <Text style={styles.bodyText}>User code: {userCode}</Text>
+                <Text style={styles.bodyText}>Item bought: {itemId}</Text>
             </View>
+			
+			<View style={styles.body}>
+				<View style={styles.bodyHeader}>
+					<Text style={styles.bodyHeaderText}>Map</Text>
+				</View>
+				<Text style={styles.bodyText}>Map Content</Text>
+			</View>
         </SafeAreaView>
     )
 }
@@ -69,6 +80,33 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+	
+	headerText: {
+		fontSize: 22,
+		fontWeight: 'bold'
+	},
+	
+	body: {
+		margin: 10,
+		backgroundColor: 'wheat'
+	},
+	
+	bodyHeader: {
+		alignItems: 'center',
+		backgroundColor: 'tan',
+		paddingBottom: 10
+	},
+	
+	bodyHeaderText: {
+		fontSize: 16,
+		fontWeight: 'bold'
+	},
+	
+	bodyText: {
+		fontSize: 20,
+		paddingLeft: 15,
+		marginBottom: 10
+	}
 });
 
 export default InfoPage;
