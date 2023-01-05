@@ -3,7 +3,7 @@ import { useEffect, useState,useRef } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React from "react";
-import {ref, set, get, child, onValue, remove} from "firebase/database";
+import {ref, set, get, child, onValue, remove, update} from "firebase/database";
 import MaskedView from '@react-native-masked-view/masked-view';
 import {auth} from '../config';
 import { NavigationContainer, useLinkProps, useRoute } from '@react-navigation/native';
@@ -45,13 +45,30 @@ export default function AddDriverToOrderScreen({navigation}) {
         set(ref(db,'DriversOrders/'+OrderID),
         {
             id:OrderID,
-            usersOrder: route.params.id,
+            usersOrderId: route.params.id,
             driver: x
         }).then(()=> {alert("Added driver")
     });
     }
-    const DeleteOrder=()=>{
-        remove(ref(db,'OrderInfo/'+route.params.id)).then(()=>alert("Removed order from no driver having order list"));
+    // const DeleteOrder=()=>{
+    //     remove(ref(db,'OrderInfo/'+route.params.id)).then(()=>alert("Removed order from no driver having order list"));
+
+    // }
+    const UpdateOrderInfo=(x)=>
+    {
+        update(ref(db,'OrderInfo/'+route.params.id),
+        {
+          /* id: route.params.id,
+           itemID: route.params.itemID,
+           user: route.params.user,
+           userCity: route.params.userCity,
+           userCode: route.params.userCode,
+           userHouse: route.params.userHouse,
+           userStreet: route.params.userStreet,*/
+           driverID: x
+
+        }).then(() => {
+            alertUser('Updated!')});
 
     }
 
@@ -76,7 +93,7 @@ export default function AddDriverToOrderScreen({navigation}) {
             <FlatList data={Driverlist}
                      renderItem={({item})=>(
                         <View>
-                            <TouchableOpacity onPress={()=>[AddDriver(item.email),DeleteOrder()]}>
+                            <TouchableOpacity onPress={()=>[AddDriver(item.email),UpdateOrderInfo(item.email)]}>
                             <Text style={{color:'#FF4B25'}}>_______________________________________</Text>
                             <Text>Drivers email= {item.email}</Text>
                             <Text style={{color:'#FF4B25'}}>_______________________________________</Text>

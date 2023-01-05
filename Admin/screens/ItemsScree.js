@@ -3,10 +3,11 @@ import { useEffect, useState,useRef } from "react";
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React from "react";
+
 import MaskedView from '@react-native-masked-view/masked-view';
 import {auth} from '../config';
 import { getAuth } from "firebase/auth";
-import {ref, set, get, child, onValue} from "firebase/database";
+import {ref, set, get, child, onValue, remove} from "firebase/database";
 import { useRoute } from "@react-navigation/native";
 import { db } from "../config";
 
@@ -38,6 +39,13 @@ export default function ItemsScreen({navigation}) {
             })
     }, []);
 
+
+    const DeleteItem=(x)=>{
+        remove(ref(db,'TestInfo/'+x)).then(()=>alert("Removed item"));
+
+    }
+
+
     return(
         <SafeAreaView style={styles.ViewStyle}>
                     <MaskedView maskElement={<Text style={[styles.LogInText,{backgroundColor:'transparent'}]}>
@@ -59,17 +67,16 @@ export default function ItemsScreen({navigation}) {
                 data={ad}
                 renderItem={({item}) => (
                     <View >
+                        <TouchableOpacity onPress={()=>DeleteItem(item.id)}>
                             <Text style={{color:'#FF4B25'}}>_______________________________________</Text>
                             <Text>id= {item.id}</Text>
                             <Text style={{color:'#FF4B25'}}>_______________________________________</Text>
                             <Text>Description= {item.description}</Text>
                             <Text>Name= {item.name} </Text>
                             <Text>Price= {item.price}</Text>
-                            
+                        </TouchableOpacity>
                     </View>
   
-
-
                 )}/>
 
         </SafeAreaView >
