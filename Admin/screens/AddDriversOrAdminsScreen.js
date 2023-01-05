@@ -66,11 +66,13 @@ export default function AddDriversOrAdminsScreen({navigation}) {
                                 id:ID
                                         };
                             ref.add(data).then(()=> {
-                    
+                                alert("Data added")
                                 }).catch((error)=>{alert(error)})
                                         })
                             .catch(error => alert(error.message))
-                                }  
+                                setEmail(''),
+                            setID(''),
+                        setPassword('')}  
    const DriverAdd = () => {
                                     createUserWithEmailAndPassword(auth, Email, Password)
                                        .then(() => {
@@ -80,11 +82,14 @@ export default function AddDriversOrAdminsScreen({navigation}) {
                                                 id:ID
                                                         };
                                             ref2.add(data).then(()=> {
+                                                alert("Data added")
                                     
                                                 }).catch((error)=>{alert(error)})
                                                         })
                                             .catch(error => alert(error.message))
-                                                }  
+                                            setEmail(''),
+                                            setID(''),
+                                        setPassword('')}  
     
     return(
     <SafeAreaView style={styles.ViewStyle}>

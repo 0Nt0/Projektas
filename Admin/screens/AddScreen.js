@@ -18,11 +18,13 @@ export default function AddScreen({navigation}) {
     const [Name, setName] = useState('')
     const [Price, setPrice] = useState('')
     const [Description, setDescription] = useState('')
-    const [ID, setID] = useState(uuidv4());
+    const [ID, setID] = useState('');
+    
 
     const[inpBackColor, setInpBackcolor]=useState('#ffffff')
     const[inpBackColorPrs, setInpBackcolorPrs]=useState('#ffffff')
     const[inpBackColorDec, setInpBackcolorDec]=useState('#ffffff')
+    const[inpBackColorId, setInpBackcolorId]=useState('#ffffff')
 
     const onFocusChange=()=> {
                  setInpBackcolor('#FEECAA')
@@ -31,6 +33,9 @@ export default function AddScreen({navigation}) {
     const onBlurChange=()=> {
                  setInpBackcolor('#ffffff')
                     }
+
+
+
     const onFocusChangePrs=()=> {
                         setInpBackcolorPrs('#FEECAA')
                            }
@@ -38,17 +43,39 @@ export default function AddScreen({navigation}) {
     const onBlurChangePrs=()=> {
                         setInpBackcolorPrs('#ffffff')
                            }
-    const onFocusChangeDec=()=> {
+
+
+
+
+    const onBlurChangDec=()=> {
+                            setInpBackcolorDec('#ffffff')
+                               }
+
+    const onFocusChangDec=()=> {
                             setInpBackcolorDec('#FEECAA')
                                }
            
-   const onBlurChangDec=()=> {
-                            setInpBackcolorDec('#ffffff')
+
+
+   const onBlurChangId=()=> {
+                            setInpBackcolorId('#ffffff')
                                }
-                               const animationStart=useRef(new Animated.Value(0)).current
+
+    const onFocusChangeId=()=> {
+                                setInpBackcolorId('#FEECAA')
+                                   }
+
+
+
+
+
+
+
+    const animationStart=useRef(new Animated.Value(0)).current
                                useEffect(()=>{
                                    animationStart.setValue(1);
                                      },[]);
+
                                      
     const SpringAnimation=(x)=>{
                                    x.setValue(0.4)
@@ -62,12 +89,14 @@ export default function AddScreen({navigation}) {
   const sendOrder = () => {
        
                                     set(ref(db, 'TestInfo/'+ID), {
+                                        
                                          description:Description,
                                          id:ID,
                                          name:Name,
                                          price:Price
                                      }).then(()=> {
                                          alert("Data is in!")
+                                         console.log(ID)
                                      });
                                      
                                      setDescription('');
@@ -118,8 +147,18 @@ export default function AddScreen({navigation}) {
                     placeholder="Item description"
                     value={Description}
                     onChangeText={text=>setDescription(text)}
-                    onFocus={()=> onFocusChangeDec()}
+                    onFocus={()=> onFocusChangDec()}
                     onBlur={()=> onBlurChangDec()}
+                />
+            </View>
+
+            <View style={[styles.InputStyle,{backgroundColor: inpBackColorId,}]}>
+            <TextInput 
+                    placeholder="Item id"
+                    value={ID}
+                    onChangeText={text=>setID(text)}
+                    onFocus={()=> onFocusChangeId()}
+                    onBlur={()=> onBlurChangId()}
                 />
             </View>
 
