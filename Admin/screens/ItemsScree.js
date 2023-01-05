@@ -12,16 +12,15 @@ import { db } from "../config";
 
 
 
-export default function MaintScreen({navigation}) {
+export default function ItemsScreen({navigation}) {
 
     const auth = getAuth();
 
     const route = useRoute();
     const [ad, setAd] = useState([]);
 
-    const reference = ref(db, 'OrderInfo/');
+    const reference = ref(db, 'TestInfo/');
     
-
 
     useEffect(() => {
         onValue(reference, (snapshot) => {
@@ -30,11 +29,8 @@ export default function MaintScreen({navigation}) {
                     const readObj = {
                         description: element.val().description,
                         id: element.val().id,
-                        userCity: element.val().userCity,
-                        userCode: element.val().userCode,
-                        userHouse: element.val().userHouse,
-                        userStreet:element.val().userStreet,
-                        user:element.val().user
+                        name: element.val().name,
+                        price: element.val().price,
                     };
                     setAd(emptyArray => [...emptyArray, readObj]);
                 })
@@ -44,18 +40,32 @@ export default function MaintScreen({navigation}) {
 
     return(
         <SafeAreaView style={styles.ViewStyle}>
+                    <MaskedView maskElement={<Text style={[styles.LogInText,{backgroundColor:'transparent'}]}>
+                     All items
+                 </Text>}>
+              <LinearGradient
+                start={{x:0,y:0}}
+                end={{x:1,y:1}}
+                colors={['#FF4B25','#FFFB01']}>
+                 <Text style={[styles.LogInText,{opacity:0}]}>
+                     All items
+                 </Text>
+              </LinearGradient>
+            </MaskedView>
+
+
             <FlatList
                 keyExtractor={(item) => item.id}
                 data={ad}
                 renderItem={({item}) => (
-                    <View style={styles.listStyle}>
+                    <View >
+                            <Text style={{color:'#FF4B25'}}>_______________________________________</Text>
                             <Text>id= {item.id}</Text>
                             <Text style={{color:'#FF4B25'}}>_______________________________________</Text>
-                            <Text>City= {item.userCity}</Text>
-                            <Text>Postal code= {item.userCode} </Text>
-                            <Text>House code= {item.userHouse}</Text>
-                            <Text>Street= {item.userStreet}</Text>
-                            <Text>User= {item.user}</Text>
+                            <Text>Description= {item.description}</Text>
+                            <Text>Name= {item.name} </Text>
+                            <Text>Price= {item.price}</Text>
+                            
                     </View>
   
 
@@ -86,8 +96,6 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         paddingHorizontal: 5,
         paddingVertical: 5,
-        marginTop: 20,
-        
     },
     button: {
         backgroundColor: 'blue',
@@ -97,8 +105,14 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 5,
     },
+    LogInText:{
+        fontSize:50,
+        marginTop:5,
+        marginLeft:5,
+        fontWeight: 'bold'
+    },
     listStyle: {
-        height:'90%',
+        height:'50%',
         width: 300,
         borderWidth:5,
         borderColor:'#FF4B25',

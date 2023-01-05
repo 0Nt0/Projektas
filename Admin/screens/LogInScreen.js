@@ -52,7 +52,7 @@ export default function LoginScreen({navigation}) {
       useEffect(() => {
         const subscriber = auth.onAuthStateChanged(user => {
             if (user!=null) {
-                navigation.navigate("main")
+                navigation.navigate("TabScreens")
             }
         })
         return subscriber
@@ -61,7 +61,7 @@ export default function LoginScreen({navigation}) {
       const LoginCheck = () => {
         signInWithEmailAndPassword(auth, AdminEmail, AdminPassword)
             .then(() => {
-                navigation.navigate("main");
+                navigation.navigate("TabScreens");
         })
         .catch(e => alert(e))
     }

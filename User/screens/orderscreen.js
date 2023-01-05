@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
 import { db } from "../config";
+import { auth } from "../config";
 
 
 
@@ -23,6 +24,8 @@ export default function OrderAd({ route, navigation}) {
             userStreet: userStreet,
             userHouse: userHouse,
             userCode: userCode,
+            id: purchaseID,
+            user: auth.currentUser.email
         }).then(()=> {
             alert("Data is in!")
         });

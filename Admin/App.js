@@ -7,25 +7,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 import LogInScreen from './screens/LogInScreen';
-import MainScreen from './screens/MainScreen'
+import MainScreen from './screens/MainScreen';
+import AddScreen from './screens/AddScreen';
+import AddDriversOrAdminsScreen from './screens/AddDriversOrAdminsScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import ItemsScreen from './screens/ItemsScree';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function TabScreens() {
-  const animationStart=useRef(new Animated.Value(0)).current
-  useEffect(()=>{
-      animationStart.setValue(1);
-        },[]);
-        const SpringAnimation=(x)=>{
-          x.setValue(0.4)
-          Animated.spring(x,{
-            toValue:1,
-            bounciness:24,
-            speed:20,
-            useNativeDriver:true
-          }).start();
-        };
+
   return (
     <Tab.Navigator >
       <Tab.Screen name="main" 
@@ -33,15 +25,49 @@ function TabScreens() {
                   options={{headerShown:false, 
                             tabBarShowLabel:false,
                             tabBarIcon:({focused,size})=>(
-                              <Animated.View style={{transform:[{scale:animationStart}]}}>
-                              <Ionicons name={focused?  "home":"home-outline"} color='#FF4B25' size={size} onPress={()=>SpringAnimation(animationStart)}></Ionicons>
+                              <Animated.View >
+                              <Ionicons name={focused? "home":"home-outline"} color={focused? '#FF4B25':'#676766'} size={size} ></Ionicons>
+                              </Animated.View>
+                            )}}/>  
+      <Tab.Screen name="add" 
+                  component={AddScreen}
+                  options={{headerShown:false, 
+                            tabBarShowLabel:false,
+                            tabBarIcon:({focused,size})=>(
+                              <Animated.View >
+                              <Ionicons name={focused?"add-circle-sharp":"add"} color={focused? '#FF4B25':'#676766'} size={size} ></Ionicons>
                               </Animated.View>
                             )}}/>
-        
+      <Tab.Screen name="addPerson" 
+                  component={AddDriversOrAdminsScreen}
+                  options={{headerShown:false, 
+                            tabBarShowLabel:false,
+                            tabBarIcon:({focused,size})=>(
+                              <Animated.View >
+                              <Ionicons name={focused?"person-add-sharp":"person-add-outline"} color={focused? '#FF4B25':'#676766'} size={size} ></Ionicons>
+                              </Animated.View>
+                            )}}/>  
+      <Tab.Screen name="profile" 
+                  component={ProfileScreen}
+                  options={{headerShown:false, 
+                            tabBarShowLabel:false,
+                            tabBarIcon:({focused,size})=>(
+                              <Animated.View >
+                              <Ionicons name={focused?"md-person-circle":"md-person-circle-outline"} color={focused? '#FF4B25':'#676766'} size={size} ></Ionicons>
+                              </Animated.View>
+                            )}}/> 
+      <Tab.Screen name="items" 
+                  component={ItemsScreen}
+                  options={{headerShown:false, 
+                            tabBarShowLabel:false,
+                            tabBarIcon:({focused,size})=>(
+                              <Animated.View >
+                              <Ionicons name={focused? "list-circle":"list-circle-outline"} color={focused? '#FF4B25':'#676766'} size={size} ></Ionicons>
+                              </Animated.View>
+                            )}}/> 
     </Tab.Navigator>
   )
 }
-
 export default function App() {
   return (
     <NavigationContainer>
@@ -51,7 +77,7 @@ export default function App() {
                     component={LogInScreen}
                     options={{headerShown:false}}/>
       <Stack.Screen 
-                    name="main"
+                    name="TabScreens"
                     component={TabScreens}
                     options={{headerShown:false}}/>
       </Stack.Navigator>
