@@ -6,6 +6,7 @@ import React, {
 import {
     View,
     Text,
+	Button,
     FlatList,
     StyleSheet,
     SafeAreaView
@@ -17,15 +18,15 @@ import {
 } from 'firebase/database';
 
 import {
-    database
+    db
 } from '../../config';
 
 function OrderPage({ navigation: { navigate } }) {
     const [driverOrders, setDriverOrders] = useState([]);
-    const driverOrderReference = ref(database, '/DriversOrders');
+    const reference = ref(db, '/DriversOrders');
 
     useEffect(() => {
-        onValue(driverOrderReference, (snapshot) => {
+        onValue(reference, (snapshot) => {
             snapshot.forEach((childSnapshot) => {
                 const childKey = childSnapshot.key;
                 const childData = childSnapshot.val();
@@ -52,8 +53,9 @@ function OrderPage({ navigation: { navigate } }) {
                 data={driverOrders}
                 renderItem={(item) => {
                     return (
-                        <View style={styles.row} onPress={() => navigate('Info')} >
+                        <View style={styles.row}>
                             <Text style={styles.rowTitle}>Order Id: {item.item.usersOrderId}</Text>
+							<Button title='Go to order' style={{ alignSelf: 'center' }} onPress={() => navigate('Info')} />
                         </View>
                     )
                 }}

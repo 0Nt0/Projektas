@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
     SafeAreaView,
+	StyleSheet,
     Text,
     View
 } from 'react-native';
@@ -15,5 +16,14 @@ function InfoPage({ navigation: { navigate } }) {
         </SafeAreaView>
     )
 }
+
+const styles = StyleSheet.create({
+    header: {
+        height: 65,
+        backgroundColor: 'peru',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+});
 
 export default InfoPage;

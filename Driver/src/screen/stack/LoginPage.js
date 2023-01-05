@@ -17,6 +17,8 @@ import {
     signInWithEmailAndPassword
 } from 'firebase/auth';
 
+import CustomTextInput from '../../components/CustomTextInput';
+
 class LoginPage extends Component {
     state = {
         email: "",
@@ -64,10 +66,6 @@ class LoginPage extends Component {
 
                     <TouchableOpacity onPress={() => loginUser()}>
                         <Text>Login</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Register')}>
-                        <Text>Don't have an account? Press here!</Text>
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
