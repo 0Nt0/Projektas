@@ -48,6 +48,7 @@ export default function AddDriverToOrderScreen({navigation}) {
             usersOrderId: route.params.id,
             driver: x
         }).then(()=> {alert("Added driver")
+        navigation.navigate('main')
     });
     }
     // const DeleteOrder=()=>{
