@@ -55,7 +55,7 @@ function OrderPage({ navigation: { navigate } }) {
                     return (
                         <View style={styles.row}>
                             <Text style={styles.rowTitle}>Order Id: {item.item.usersOrderId}</Text>
-							<Button title='Go to order' style={{ alignSelf: 'center' }} onPress={() => navigate('Info')} />
+							<Button title='Go to order' style={{ alignSelf: 'center' }} onPress={() => navigate('Info', item)} />
                         </View>
                     )
                 }}
