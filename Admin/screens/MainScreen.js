@@ -63,15 +63,17 @@ export default function MaintScreen({navigation}) {
                 data={ad}
                 renderItem={({item}) => (
                     <TouchableOpacity onPress={()=>navigation.navigate('Order',item)}>
-                    <View style={styles.listStyle}>
+                    <View >
+                    <Text style={{color:'#FF4B25'}}>_______________________________________</Text>
                             <Text>id= {item.id}</Text>
-                            <Text style={{color:'#FF4B25'}}>_______________________________________</Text>
+                           
                             <Text>City= {item.userCity}</Text>
                             <Text>Postal code= {item.userCode} </Text>
                             <Text>House code= {item.userHouse}</Text>
                             <Text>Street= {item.userStreet}</Text>
                             <Text>User= {item.user}</Text>
                             <Text>Driver= {item.driverID}</Text>
+                            <Text style={{color:'#FF4B25'}}>_______________________________________</Text>
                     </View>
                     </TouchableOpacity>
   
