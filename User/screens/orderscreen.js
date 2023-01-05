@@ -42,8 +42,7 @@ export default function OrderAd({navigation}) {
         setHouse('');
         setUserCode('');
         setPurchaceID('');
-        setItemID('');
-    }    
+    }       
 
     return(
         <KeyboardAvoidingView style={styles.container}>
