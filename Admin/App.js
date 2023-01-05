@@ -12,6 +12,8 @@ import AddScreen from './screens/AddScreen';
 import AddDriversOrAdminsScreen from './screens/AddDriversOrAdminsScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import ItemsScreen from './screens/ItemsScree';
+import AddDriverToOrderScreen from './screens/AddDriverToOrderScreen';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -77,9 +79,14 @@ export default function App() {
                     component={LogInScreen}
                     options={{headerShown:false}}/>
       <Stack.Screen 
+                    name="Order"
+                    component={AddDriverToOrderScreen}
+                    options={{headerShown:false}}/>
+      <Stack.Screen 
                     name="TabScreens"
                     component={TabScreens}
                     options={{headerShown:false}}/>
+      
       </Stack.Navigator>
     </NavigationContainer>
   );

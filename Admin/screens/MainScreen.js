@@ -44,10 +44,24 @@ export default function MaintScreen({navigation}) {
 
     return(
         <SafeAreaView style={styles.ViewStyle}>
+                 <MaskedView maskElement={<Text style={[styles.LogInText,{backgroundColor:'transparent'}]}>
+                     All orders that don't have drivers asighned
+                 </Text>}>
+              <LinearGradient
+                start={{x:0,y:0}}
+                end={{x:1,y:1}}
+                colors={['#FF4B25','#FFFB01']}>
+                 <Text style={[styles.LogInText,{opacity:0}]}>
+                 All orders that don't have drivers asighned
+                 </Text>
+              </LinearGradient>
+            </MaskedView>
+
             <FlatList
                 keyExtractor={(item) => item.id}
                 data={ad}
                 renderItem={({item}) => (
+                    <TouchableOpacity onPress={()=>navigation.navigate('Order',item)}>
                     <View style={styles.listStyle}>
                             <Text>id= {item.id}</Text>
                             <Text style={{color:'#FF4B25'}}>_______________________________________</Text>
@@ -57,6 +71,7 @@ export default function MaintScreen({navigation}) {
                             <Text>Street= {item.userStreet}</Text>
                             <Text>User= {item.user}</Text>
                     </View>
+                    </TouchableOpacity>
   
 
 
@@ -104,6 +119,12 @@ const styles = StyleSheet.create({
         borderColor:'#FF4B25',
         backgroundColor: '#ffffff',    
         margin:12
+        },
+        LogInText:{
+            fontSize:20,
+            marginTop:5,
+            marginLeft:5,
+            fontWeight: 'bold'
         },
     
 
