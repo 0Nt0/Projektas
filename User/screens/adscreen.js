@@ -49,12 +49,11 @@ export default function AdScreen({navigation}) {
                 data={ad}
                 renderItem={({item}) => (
                     <View style={styles.listStyle}>
-                            <Text>{item.id}</Text>
                             <Text>{item.name}, {item.price} </Text>
                             <Text>{item.description}</Text>
                                 <TouchableOpacity
                                 style={styles.button}
-                                onPress={ () => {navigation.navigate("OrderScreen", item.id)} }
+                                onPress={ () => {navigation.navigate("OrderScreen", {data : item.id});}}
                                 >
                                     <Text>Pirkti</Text>
                                 </TouchableOpacity>

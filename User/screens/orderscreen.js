@@ -5,16 +5,21 @@ import 'react-native-get-random-values';
 import {v4 as uuidv4} from 'uuid';
 import { db } from "../config";
 import { auth } from "../config";
+import { useRoute } from "@react-navigation/native";
 
 
-
-export default function OrderAd({ route, navigation}) {
+export default function OrderAd({navigation}) {
     //const [isActiveState, setIsActiveState] = useState(false);
+
+    const route = useRoute();
+
     const [userCity, setUserCity] = useState('');
     const [userStreet, setStreet] = useState('');
     const [userHouse, setHouse] = useState('');
     const [userCode, setUserCode] = useState('');
     const [purchaseID, setPurchaceID] = useState(uuidv4());
+    const [itemID, setItemID] = useState(route.params.data);
+    console.log(itemID);
     
 
     sendOrder = () => {
@@ -25,7 +30,9 @@ export default function OrderAd({ route, navigation}) {
             userHouse: userHouse,
             userCode: userCode,
             id: purchaseID,
-            user: auth.currentUser.email
+            user: auth.currentUser.email,
+            itemID: itemID,
+
         }).then(()=> {
             alert("Data is in!")
         });
@@ -35,6 +42,7 @@ export default function OrderAd({ route, navigation}) {
         setHouse('');
         setUserCode('');
         setPurchaceID('');
+        setItemID('');
     }    
 
     return(
