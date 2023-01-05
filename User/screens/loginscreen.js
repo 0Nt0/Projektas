@@ -54,6 +54,12 @@ export default function LoginScreen({navigation}) {
 
     return(
         <KeyboardAvoidingView style={styles.container} behavior="padding">
+            <View>
+                <Text style = {styles.text}>Biggie Shoppie</Text>
+            </View>
+            <View>
+                <Text style = {styles.miscText}>Please log in or sign up to use this application</Text>
+            </View>
             <View style={styles.inputContainer}>
                 <TextInput
                     placeholder="E-mail"
@@ -70,7 +76,7 @@ export default function LoginScreen({navigation}) {
                 />
             </View>
            <TouchableOpacity
-                style={styles.button}
+                style={styles.loginButton}
                 onPress={handleLogin}
             >
                 <Text>Login</Text>
@@ -78,7 +84,7 @@ export default function LoginScreen({navigation}) {
             </TouchableOpacity>
 
             <TouchableOpacity
-                style={styles.button}
+                style={styles.registerButton}
                 onPress={handleSignUp}
             >
                 <Text>Register</Text>
@@ -96,26 +102,53 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     text: {
-        color: 'blue',
-        fontSize: 20,
+        color: 'black',
+        fontSize: 28,
         fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: 15,
+        padding: 10,
+    },
+    miscText: {
+        color: 'orange',
+        fontSize: 12,
+        textAlign: 'center',
+        marginTop: 10,
     },
     inputContainer: {
-        width: '60%',
+        width: '80%',
         fontSize: 14,
         color: "red",
         backgroundColor: "white",
         paddingHorizontal: 5,
-        paddingVertical: 5,
-        marginTop: 20,
+        paddingVertical: 20,
+        marginTop: 30,
+        borderRadius: 5,
+        borderColor: 'black',
+        borderWidth: 1,
         
     },
-    button: {
-        backgroundColor: 'blue',
+    loginButton: {
+        backgroundColor: 'white',
         width: '60%',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 20,
+        padding: 20,
+        borderRadius: 15,
+        borderColor: 'black',
+        borderWidth: 3,
+    },
+    registerButton: {
+        backgroundColor: 'orange',
+        width: '60%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+        padding: 20,
+        borderRadius: 15,
+        borderColor: 'black',
+        borderWidth: 3,
     },
     buttonContainer: {
 

@@ -19,6 +19,7 @@ export default function OrderAd({navigation}) {
     const [userCode, setUserCode] = useState('');
     const [purchaseID, setPurchaceID] = useState(uuidv4());
     const [itemID, setItemID] = useState(route.params.data);
+    const [driverID, setDriverID] = useState('');
     console.log(itemID);
     
 
@@ -32,6 +33,7 @@ export default function OrderAd({navigation}) {
             id: purchaseID,
             user: auth.currentUser.email,
             itemID: itemID,
+            driverID: driverID,
 
         }).then(()=> {
             alert("Data is in!")
@@ -42,6 +44,7 @@ export default function OrderAd({navigation}) {
         setHouse('');
         setUserCode('');
         setPurchaceID('');
+        setDriverID('');
     }       
 
     return(
@@ -81,14 +84,14 @@ export default function OrderAd({navigation}) {
 
             
                 <TouchableOpacity
-                style={styles.button}
+                style={styles.inputButton}
                 onPress={sendOrder}
                 >
                 <Text>Irasyti</Text>
 
                 </TouchableOpacity>
                 <TouchableOpacity
-                style={styles.button}
+                style={styles.goBackButton}
                 onPress={() => navigation.goBack()}
                 >
                 <Text>Back</Text>
@@ -107,20 +110,38 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     inputContainer: {
-        width: '60%',
+        width: '80%',
         fontSize: 14,
         color: "red",
         backgroundColor: "white",
         paddingHorizontal: 5,
-        paddingVertical: 5,
-        marginTop: 20,
+        paddingVertical: 20,
+        marginTop: 30,
+        borderRadius: 5,
+        borderColor: 'black',
+        borderWidth: 1,
         
     },
-    button: {
-        backgroundColor: 'blue',
+    inputButton: {
+        backgroundColor: 'white',
         width: '60%',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 20,
+        padding: 20,
+        borderRadius: 15,
+        borderColor: 'black',
+        borderWidth: 3,
+    },
+    goBackButton: {
+        backgroundColor: 'orange',
+        width: '60%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+        padding: 20,
+        borderRadius: 15,
+        borderColor: 'black',
+        borderWidth: 3,
     },
 });

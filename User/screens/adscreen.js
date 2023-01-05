@@ -42,15 +42,15 @@ export default function AdScreen({navigation}) {
 
     return(
         <KeyboardAvoidingView style={styles.container}>
-            <Text>E-mail: {auth.currentUser?.email}</Text>
+            <Text style={styles.text}>E-mail: {auth.currentUser?.email}</Text>
 
             <FlatList
                 keyExtractor={(item) => item.id}
                 data={ad}
                 renderItem={({item}) => (
                     <View style={styles.listStyle}>
-                            <Text>{item.name}, {item.price} </Text>
-                            <Text>{item.description}</Text>
+                            <Text style={styles.textTitle}>{item.name}, {item.price}$ </Text>         
+                            <Text style={styles.descriptionText}>{item.description}</Text>
                                 <TouchableOpacity
                                 style={styles.button}
                                 onPress={ () => {navigation.navigate("OrderScreen", {data : item.id});}}
@@ -65,7 +65,7 @@ export default function AdScreen({navigation}) {
 
             <TouchableOpacity 
             onPress={handleSignOut}
-            styles={styles.button}>
+            style={styles.logoutButton}>
                 <Text>Sign Out</Text>
             </TouchableOpacity>
         </KeyboardAvoidingView>
@@ -80,8 +80,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     text: {
-        color: 'blue',
-        fontSize: 20,
+        marginTop: 30,
+        color: 'black',
+        fontSize: 18,
+        fontWeight: 'bold',
+
+    },
+    descriptionText:{
+        marginLeft: 40,
+        color: 'black',
+        fontSize: 12,
         fontWeight: 'bold',
     },
     inputContainer: {
@@ -94,20 +102,66 @@ const styles = StyleSheet.create({
         marginTop: 20,
         
     },
+    textTitle: {
+        
+        color: 'orange',
+        fontSize: 16,
+        fontWeight: 'bold',
+        marginLeft: 40,
+
+    },
+    buttonView: {
+        flexdirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'right',
+    },
     button: {
         backgroundColor: 'blue',
-        width: '10%',
-        justifyContent: 'center',
+        width: 60,
+        height:  25,
         alignItems: 'center',
-        marginTop: 5,
-        marginBottom: 5,
+        marginTop: 3,
+        marginBottom: 3,
+        borderRadius: 3,
+        borderColor: 'black',
+        borderWidth: 1,
+        marginLeft: 40,
+        
     },
     listStyle: {
-        height:100,
+        height: 120,
         width: 300,
         borderWidth:5,
-        borderColor:'black',
-        backgroundColor: 'red',    
-        margin:12
+        borderColor:'orange',
+        backgroundColor: 'gainsboro',   
+        justifyContent: 'center',
+        alignContent: 'center',
+        margin:12,
+        borderRadius: 15,
+        borderWidth: 3,
         },
+    logoutButton: {
+        backgroundColor: 'orange',
+        width: '60%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+        padding: 20,
+        borderRadius: 15,
+        borderColor: 'black',
+        borderWidth: 3,
+        marginBottom: 30,
+        },
+    buyButton: {
+        backgroundColor: 'orange',
+        width: '60%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+        padding: 20,
+        borderRadius: 15,
+        borderColor: 'black',
+        borderWidth: 3,
+        marginBottom: 30,
+    },
 });
