@@ -19,8 +19,6 @@ import {
     db
 } from '../../config';
 
-import MapView from 'react-native-maps';
-
 function InfoPage({ route, navigation}) {
     const [id, setId] = useState("");
     const [user, setUser] = useState("");
@@ -64,16 +62,6 @@ function InfoPage({ route, navigation}) {
                 <Text style={styles.bodyText}>User code: {userCode}</Text>
                 <Text style={styles.bodyText}>Item bought: {itemId}</Text>
             </View>
-			
-			<View style={styles.body}>
-				<View style={styles.bodyHeader}>
-					<Text style={styles.bodyHeaderText}>Map</Text>
-					<View style={{ flex: 1}}>
-						<MapView style={{width: '100%', height: '100%'}}/>
-					</View>
-				</View>
-				
-			</View>
         </SafeAreaView>
     )
 }
