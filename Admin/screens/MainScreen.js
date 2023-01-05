@@ -34,7 +34,8 @@ export default function MaintScreen({navigation}) {
                         userCode: element.val().userCode,
                         userHouse: element.val().userHouse,
                         userStreet:element.val().userStreet,
-                        user:element.val().user
+                        user:element.val().user,
+                        driverID:element.val().driverID
                     };
                     setAd(emptyArray => [...emptyArray, readObj]);
                 })
@@ -70,6 +71,7 @@ export default function MaintScreen({navigation}) {
                             <Text>House code= {item.userHouse}</Text>
                             <Text>Street= {item.userStreet}</Text>
                             <Text>User= {item.user}</Text>
+                            <Text>Driver= {item.driverID}</Text>
                     </View>
                     </TouchableOpacity>
   
